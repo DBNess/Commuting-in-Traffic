@@ -1,0 +1,83 @@
+
+function Question(id, image, options)
+{
+id : id;
+image : image;
+options : options;
+}
+
+function Option(id, text)
+{
+id : id; 
+text : text; 
+next : next;
+}
+
+
+HHH = {};
+///URL
+HHH.getQuestionUrl = "";
+
+
+//Object Methods
+
+HHH.NextQuestion = function(questionId){
+  //Get Question
+  $.getJSON(HHH.NextQuestionUrl, function(data){
+    //populate page element with question
+  });
+}
+
+HHH.GetData = function(){
+	$.ajax({
+		url: "http://izzycjohnston.com/gdihhh/php/cit_json.php",
+		dataType: "jsonp",
+		success: function(data){
+			console.log(data);
+		}
+		
+	})
+}
+
+HHH.GetData();
+
+//Page Utils
+
+HHH.MouseOverQuestion = function(){
+
+	$("#question").children("button").mouseover(function()
+	{
+		$(this).toggleClass("highlight");
+	});
+}
+
+HHH.MouseOverMenu = function(){
+
+	$(".heading").children("button").mouseover(function()
+	{
+		$(this).toggleClass("menu-highlight");
+	});
+}
+
+HHH.Transition = function(){
+//Transition animation
+	$(".photo").fadeOut();
+	$(".photo").attr("src", "new url");
+	$(".photo").fadeIn();
+}
+
+
+HHH.PopulatePage = function(question){
+	$("#question").val(question.text);
+	for(i=0; i < question.options.length; i++)
+	{
+		$("#question").append("<option>"+ question.options[i] + "</option>");
+	}
+}
+
+
+
+
+
+
+
