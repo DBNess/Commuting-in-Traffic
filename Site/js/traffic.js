@@ -13,6 +13,7 @@ HHH.LoadGame = function(){
 }
 
 HHH.OptionClick = function(){
+	var nextQuestionID = $(this).id().split("_")[1];
 	
 }
 
@@ -59,7 +60,9 @@ HHH.Transition = function(){
 
 
 HHH.PopulatePage = function(questionID){
-
+	HHH.LoadQuestion(questionID);
+	HHH.LoadOptions(questionID);
+	HHH.LoadFact(questionID);
 }
 
 
@@ -67,7 +70,7 @@ HHH.LoadQuestion = function(questionID){
 	var question = jlinq.from(HHH.Data.questions)
 	.equals("ID", questionID)
 	.select();
-	$("#question").append('<div class="inside clearfix"><p class="large heading">' + question.question_heading + "</p><p>" + question.content + "</p></div>");
+	$("#question").val('<div class="inside clearfix"><p class="large heading">' + question.question_heading + "</p><p>" + question.content + "</p></div>");
 }
 
 HHH.LoadOptions = function(questionID){
@@ -76,13 +79,15 @@ HHH.LoadOptions = function(questionID){
 	.select();
 	for(i=0; i < options.length; i++)
 	{
-		$("#question").append("<option>"+ question.options[i] + "</option>");
+		$(".options").append('<div id="opt_'+ option.option_next_question + 'class="button" onclick="HHH.OptionClick"><span>' option.name + '</span> <br />' + option.about + '</div>' );
 	}
 }
+
 HHH.LoadFact = function(questionID){
 	var fact = jlinq.from(HHH.Data.facts)
 	.equals("fact_question", questionID)
 	.select();
+	$(".inside").children("p").val(fact.anecdote);
 }
 
 
